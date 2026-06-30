@@ -1,0 +1,22 @@
+# Preguntas de reflexión
+
+1. ¿Cuál es la diferencia entre `ActionEvent`, `MouseEvent` y `KeyEvent`?
+2. ¿Por qué es mejor separar la vista en FXML y la lógica en el Controller?
+3. ¿Qué función cumple `@FXML`?
+4. ¿Qué ocurre si el nombre del método en el FXML no coincide con el método del Controller?
+5. ¿Por qué es recomendable usar CSS en lugar de colocar estilos directamente en Java?
+
+1. ActionEvent vs MouseEvent vs KeyEvent
+ActionEvent es genérico: solo dice "pasó una acción" (clic en botón, ítem de menú), sin importar el detalle. MouseEvent sí te da detalles del mouse: posición, qué botón, si fue doble clic, etc. KeyEvent hace lo mismo pero con el teclado: qué tecla, si se presionó o soltó, si había Shift o Ctrl. O sea, ActionEvent es el evento "de alto nivel" y los otros dos son más técnicos y específicos del dispositivo.
+
+2. Por qué separar FXML del Controller
+Porque así cada cosa se queda en su carril: el diseño en FXML y la lógica en Java. Esto hace que el código sea más fácil de mantener, que se pueda cambiar la interfaz sin tocar la lógica (y viceversa), y que el proyecto quede más organizado en general. Es básicamente aplicar MVC.
+
+3. Qué hace @FXML
+Es la anotación que conecta el Controller con el archivo FXML. Le dice a JavaFX "este atributo o método, aunque sea privado, lo puedes usar desde el FXML". Así un botón definido en el FXML puede llamar a un método del Controller, o un campo de texto puede inyectarse directamente como atributo.
+
+4. Si el nombre del método no coincide
+Te explota en tiempo de ejecución, no antes. Cuando se carga la vista, el FXMLLoader busca el método por el nombre que puso el FXML, y si no lo encuentra (por un typo, por ejemplo) lanza una excepción tipo LoadException diciendo que no pudo conectar esa referencia.
+
+5. Por qué usar CSS y no estilos en Java
+Mismo principio que con FXML: separar diseño de lógica. Con CSS puedes reutilizar estilos en varios componentes, cambiar el look sin recompilar nada, y usar cosas como :hover de forma limpia, en vez de andar metiendo estilos a mano dentro del código Java.
